@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
 
         let frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height / 2)
         
-        let photos = [UIImage(named: "1"), UIImage(named: "2"), UIImage(named: "3"), UIImage(named: "4")]
+        let photos = [UIImage(named: "1"), UIImage(named: "2"), UIImage(named: "3"), UIImage(named: "4"), UIImage(named: "5"), UIImage(named: "6")]
         
         let scrollView = JVInfinityScrollView(frame: frame, photos: photos)
     

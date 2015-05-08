@@ -10,14 +10,13 @@ import UIKit
 
 class JVInfinityScrollView: UIScrollView, UIScrollViewDelegate {
     
-    var lastContentOffsetX:CGFloat
-    var imageView:UIImageView?
-    var endContentOffSet:CGFloat
+    /// This var get the last ContentOffset when UIScrollView moves
+    var lastContentOffsetX = CGFloat()
+    /// This var get the end of the Content, get the last photo
+    var endContentOffSet = CGFloat()
     
     init(frame: CGRect, photos: [UIImage?]) {
     
-        lastContentOffsetX = 0
-        endContentOffSet = 0
         UIScrollView(frame: frame)
         super.init(frame: frame)
         delegate = self
@@ -26,75 +25,79 @@ class JVInfinityScrollView: UIScrollView, UIScrollViewDelegate {
         contentMode = UIViewContentMode.ScaleAspectFit
         addImages(photos)
         
-        scrollRectToVisible(CGRectMake(endContentOffSet - frame.width, 0, frame.width, frame.height), animated: false)
+        // it makes the magic in the scrollView.. we need to set the last - 1 photo because we will create the same photo in the first index so it will make the effect of infinity scroll =)
+        scrollRectToVisible(CGRectMake(endContentOffSet, 0, frame.width, frame.height), animated: false)
+        
     }
 
     required init(coder aDecoder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
     }
     
     func addImages(photos: [UIImage?]) {
         
-        var x:CGFloat = 0
+        var imageViewPositionX = CGFloat()
+        
+        // here we set the last image on beginning of the scrollview content
+        var imageView = UIImageView(frame: CGRectMake(imageViewPositionX, frame.origin.y, frame.size.width, frame.size.height))
+        imageView.image = photos.last!
+        imageViewPositionX += frame.width
+        addSubview(imageView)
         
         for photo in photos {
-            
-            imageView = UIImageView(frame: CGRectMake(x, frame.origin.y, frame.size.width, frame.size.height))
-            
-            
-            if (x == 0) {
-    
-                imageView!.image = photos.last!
-                x += frame.width
-                addSubview(imageView!)
-                
-                imageView = UIImageView(frame: CGRectMake(x, frame.origin.y, frame.size.width, frame.size.height))
-                addSubview(imageView!)
-            }
-
-            imageView!.image = photo
-            
-            
-            x += frame.width
-            
-            addSubview(imageView!)
+        
+            imageView = UIImageView(frame: CGRectMake(imageViewPositionX, frame.origin.y, frame.size.width, frame.size.height))
+            imageView.image = photo
+            imageViewPositionX += frame.width
+            addSubview(imageView)
         }
 
-        endContentOffSet = x
+        // get the context size total
+        endContentOffSet = imageViewPositionX
         
-        imageView = UIImageView(frame: CGRectMake(x, frame.origin.y, frame.size.width, frame.size.height))
-        imageView!.image = photos.first!
-        
-        x += frame.width
-        addSubview(imageView!)
-        contentSize = CGSizeMake(x, imageView!.frame.size.height)
+        // add the first image at the end of the scrollview content to make the trick
+        imageView = UIImageView(frame: CGRectMake(imageViewPositionX, frame.origin.y, frame.size.width, frame.size.height))
+        imageView.image = photos.first!
+        imageViewPositionX += frame.width
+        addSubview(imageView)
+        contentSize = CGSizeMake(imageViewPositionX, imageView.frame.size.height)
     }
 
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView){
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         /* Gets called only after scrolling */
         
-        println("content offset x = \(scrollView.contentOffset.x)")
+        println("ContentOffset.x = \(scrollView.contentOffset.x)")
         
+        /**
+        *  This if makes the scrollview moves to the first photo in the array, in fact it is the second photo in the content..
+        */
+        if (scrollView.contentOffset.x == endContentOffSet) {
+            
+            scrollRectToVisible(CGRectMake(frame.width, 0, frame.width, frame.height), animated: false)
+        }
+        
+        /**
+        *  this if verify if the contentOffset is in the begining of the content, if its true, and i scroll <<<<<, the scrollview will be set to the last - 1 photo in my content, that in fact is the last photo on my array of photos =)
+        */
+        if (scrollView.contentOffset.x == 0) {
+            
+            scrollRectToVisible(CGRectMake(endContentOffSet - frame.width, 0, frame.width, frame.height), animated: false)
+        }
+        
+        /**
+        *  See where user is scrolling
+        */
         if (lastContentOffsetX < scrollView.contentOffset.x) {
             
-            println("moving >>>>>>>>")
-            
-            if (scrollView.contentOffset.x == endContentOffSet) {
-                
-                scrollRectToVisible(CGRectMake(frame.width, 0, frame.width, frame.height), animated: false)
-            }
+            println("Scrolling >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
             
         } else {
             
-            println("moving <<<<<<<<")
+            println("Scrolling <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
             
-            if (scrollView.contentOffset.x == 0) {
-                
-                scrollRectToVisible(CGRectMake(endContentOffSet - frame.width, 0, frame.width, frame.height), animated: false)
-            }
         }
         
         lastContentOffsetX = scrollView.contentOffset.x
-
     }
 }
