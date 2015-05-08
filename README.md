@@ -6,9 +6,9 @@ The implementation is in progress,
 if you liked the idea, and want to help me and keep improve the code, 
 you can make a push request or send me a message on twitter @jean.vinge.
 
-## Usage
+## Demo
 
-Its so easy to create a `JVInfinityScrollView`
+![](Examples/LiveDemo/infinityScrollView.gif)
 
 ### Example
 
@@ -28,10 +28,6 @@ let scrollView = JVInfinityScrollView(frame: frame, photos: photos)
 // add to the view you want.. and sucess =D
 view.addSubview(scrollView)
 ```
-
-## Demo
-![](Examples/LiveDemo/infinityScrollView.gif)
-
 
 # License
 
