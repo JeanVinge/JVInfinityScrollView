@@ -32,6 +32,9 @@ view.addSubview(scrollView)
 ## Demo
 ![](Examples/LiveDemo/infinityScrollView.gif)
 
+
+# License
+
 The MIT License (MIT)
 
 Copyright (c) 2014 Jean Vinge
