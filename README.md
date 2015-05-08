@@ -1,10 +1,10 @@
 # JVInfinityScrollView
 
-The idea is to create a similar Apple Store Banner, and learn some code in swift =)
+The idea is to create a similar Apple Store Banner, and learn some code in **swift** =)
 
 The implementation is in progress, 
-if you liked the idea, and want to help me and keep improve the code, 
-you can make a push request or send me a message on twitter @jean.vinge.
+if you liked the idea, and want to help me and keep improve this code, 
+you can make a push request or send me a message on [@jean_vinge](https://twitter.com/jean_vinge).
 
 ## Demo
 
