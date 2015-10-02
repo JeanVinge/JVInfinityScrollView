@@ -17,7 +17,6 @@ class JVInfinityScrollView: UIScrollView, UIScrollViewDelegate {
     
     init(frame: CGRect, photos: [UIImage?]) {
     
-        UIScrollView(frame: frame)
         super.init(frame: frame)
         delegate = self
         pagingEnabled = true
@@ -30,7 +29,7 @@ class JVInfinityScrollView: UIScrollView, UIScrollViewDelegate {
         
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
     }
@@ -67,7 +66,7 @@ class JVInfinityScrollView: UIScrollView, UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         /* Gets called only after scrolling */
         
-        println("ContentOffset.x = \(scrollView.contentOffset.x)")
+        print("ContentOffset.x = \(scrollView.contentOffset.x)")
         
         /**
         *  This if makes the scrollview moves to the first photo in the array, in fact it is the second photo in the content..
@@ -90,11 +89,11 @@ class JVInfinityScrollView: UIScrollView, UIScrollViewDelegate {
         */
         if (lastContentOffsetX < scrollView.contentOffset.x) {
             
-            println("Scrolling >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            print("Scrolling >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
             
         } else {
             
-            println("Scrolling <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+            print("Scrolling <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
             
         }
         
