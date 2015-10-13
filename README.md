@@ -6,6 +6,13 @@ The implementation is in progress,
 if you liked the idea, and want to help me and keep improve this code, 
 you can make a pull request or talk on [@jean_vinge](https://twitter.com/jean_vinge).
 
+## PodFile
+
+```ruby
+platform :ios, '8.0'
+pod "JVInfinityScrollView"
+```
+
 ## Demo
 
 ![](Examples/LiveDemo/infinityScrollView.gif)
